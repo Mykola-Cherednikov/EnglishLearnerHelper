@@ -66,5 +66,21 @@
         {
             FileService.Save(FilePath, Dictionary);
         }
+
+        public List<TranslateSet> ReloadTranslations()
+        {
+            Dictionary.Clear();
+
+            Dictionary.AddRange(FileService.Load(FilePath));
+
+            return GetTranslations();
+        }
+
+        public List<TranslateSet> ImportTranslations(string importFilePath)
+        {
+            FileService.ImportData(FilePath, importFilePath);
+
+            return ReloadTranslations();
+        }
     }
 }

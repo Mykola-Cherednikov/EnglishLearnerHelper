@@ -23,6 +23,13 @@ namespace EnglishLearnerHelper
             TranslationTable.Columns.Add("WrongCount", "Wrong Count");
             TranslationTable.Columns.Add("Id", "Id");
 
+            ShowRows();
+        }
+
+        private void ShowRows()
+        {
+            TranslationTable.Rows.Clear();
+
             var dict = translateService.GetTranslations();
 
             foreach (var row in dict)

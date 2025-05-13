@@ -34,7 +34,7 @@ namespace EnglishLearnerHelperAPI
             {
                 var saveData = LoadAndMigrate(filePath);
 
-                dictionary = (List<TranslateSet>) saveData.Data;
+                dictionary = (List<TranslateSet>)saveData.Data;
             }
 
             return dictionary ?? new List<TranslateSet>();
@@ -52,7 +52,7 @@ namespace EnglishLearnerHelperAPI
             for (int i = saveData.Version; i < LastVersion; i++)
             {
                 saveData = MigrationActions[i](filePath, saveData);
-                Save(filePath, (List<TranslateSet>) saveData.Data);
+                Save(filePath, (List<TranslateSet>)saveData.Data);
             }
 
             return saveData;
@@ -66,7 +66,7 @@ namespace EnglishLearnerHelperAPI
                 if (saveData?.Data == null)
                     return null;
 
-                saveData.Data = ((JsonElement) saveData.Data).Deserialize<List<TranslateSet>>()!;
+                saveData.Data = ((JsonElement)saveData.Data).Deserialize<List<TranslateSet>>()!;
                 return saveData;
             }
             catch (JsonException)
@@ -80,7 +80,7 @@ namespace EnglishLearnerHelperAPI
 
         private static SaveData MigrationToV1(string filePath, SaveData saveData)
         {
-            var oldData = (List<TranslateSetV0>) saveData.Data;
+            var oldData = (List<TranslateSetV0>)saveData.Data;
             var newData = oldData.Select(row => new TranslateSet
             {
                 Id = row.Id,
@@ -96,6 +96,16 @@ namespace EnglishLearnerHelperAPI
                 Version = 1,
                 Data = newData
             };
+        }
+
+        public static void ImportData(string filePath, string importFilePath)
+        {
+            List<TranslateSet> currentTranslateSets = Load(filePath);
+            List<TranslateSet> importTranslateSets = Load(importFilePath);
+
+            var finalList = currentTranslateSets.Concat(importTranslateSets).GroupBy(t => t.Id).Select(group => group.First()).ToList();
+
+            Save(filePath, finalList);
         }
     }
 }
