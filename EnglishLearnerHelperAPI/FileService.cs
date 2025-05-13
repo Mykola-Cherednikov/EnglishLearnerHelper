@@ -1,0 +1,105 @@
+﻿using EnglishLearnerHelperAPI.OldModels;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+
+namespace EnglishLearnerHelperAPI
+{
+    public class FileService
+    {
+        private static int LastVersion { get => MigrationActions.Count; }
+
+        private static List<Func<string, SaveData, SaveData>> MigrationActions = new List<Func<string, SaveData, SaveData>>() { MigrationToV1 };
+
+        private static JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+
+        public static void Save(string filePath, List<TranslateSet> translations)
+        {
+            var saveData = new SaveData()
+            {
+                Version = LastVersion,
+                Data = translations.Cast<object>().ToList()
+            };
+
+            string json = JsonSerializer.Serialize(saveData, JsonSerializerOptions);
+
+            File.WriteAllText(filePath, json, Encoding.UTF8);
+        }
+
+        public static List<TranslateSet> Load(string filePath)
+        {
+            List<TranslateSet>? dictionary = null;
+
+            if (File.Exists(filePath))
+            {
+                var saveData = LoadAndMigrate(filePath);
+
+                dictionary = saveData.Data.Cast<TranslateSet>().ToList();
+            }
+
+            return dictionary ?? new List<TranslateSet>();
+        }
+
+        private static SaveData LoadAndMigrate(string filePath)
+        {
+            var json = File.ReadAllText(filePath, Encoding.UTF8);
+            SaveData saveData = TryDeserialize(json) ?? new SaveData
+            {
+                Version = LastVersion,
+                Data = new List<object>()
+            };
+
+            for (int i = saveData.Version; i < LastVersion; i++)
+            {
+                saveData = MigrationActions[i](filePath, saveData);
+                Save(filePath, saveData.Data.Cast<TranslateSet>().ToList());
+            }
+
+            return saveData;
+        }
+
+        private static SaveData? TryDeserialize(string json)
+        {
+            try
+            {
+                var saveData = JsonSerializer.Deserialize<SaveData>(json, JsonSerializerOptions);
+                if (saveData?.Data == null)
+                    return null;
+
+                saveData.Data = saveData.Data
+                    .Cast<JsonElement>()
+                    .Select(e => JsonSerializer.Deserialize<TranslateSet>(e, JsonSerializerOptions)!)
+                    .Cast<object>()
+                    .ToList();
+                return saveData;
+            }
+            catch (JsonException)
+            {
+                var oldData = JsonSerializer.Deserialize<List<TranslateSetV0>>(json, JsonSerializerOptions);
+                return oldData != null
+                    ? new SaveData { Version = 0, Data = oldData.Cast<object>().ToList() }
+                    : null;
+            }
+        }
+
+        private static SaveData MigrationToV1(string filePath, SaveData saveData)
+        {
+            var oldData = saveData.Data.Cast<TranslateSetV0>().ToList();
+            var newData = oldData.Select(row => new TranslateSet
+            {
+                Id = row.Id,
+                OriginalWord = row.OriginalWord,
+                OriginalSentence = row.OriginalSentence,
+                TranslatedWord = row.TranslatedWord,
+                CorrectAnswers = Enumerable.Repeat(DateTime.Now, row.CorrectAnswers).ToList(),
+                WrongAnswers = Enumerable.Repeat(DateTime.Now, row.WrongAnswers).ToList()
+            }).ToList();
+
+            return new SaveData
+            {
+                Version = 1,
+                Data = newData.Cast<object>().ToList()
+            };
+        }
+    }
+}
