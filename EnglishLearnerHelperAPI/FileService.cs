@@ -102,6 +102,7 @@ namespace EnglishLearnerHelperAPI
         {
             List<TranslateSet> currentTranslateSets = Load(filePath);
             List<TranslateSet> importTranslateSets = Load(importFilePath);
+            importTranslateSets.ForEach(t => { t.WrongAnswers.Clear(); t.CorrectAnswers.Clear(); });
 
             var finalList = currentTranslateSets.Concat(importTranslateSets).GroupBy(t => t.Id).Select(group => group.First()).ToList();
 

@@ -1,5 +1,4 @@
 ﻿using EnglishLearnerHelperAPI;
-using System.Windows.Forms;
 
 namespace EnglishLearnerHelper
 {
@@ -149,6 +148,45 @@ namespace EnglishLearnerHelper
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+
+                    try
+                    {
+                        translateService.ImportTranslations(filePath);
+                        ShowRows();
+                        MessageBox.Show($"Import successful!", "Open File");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"Import error!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void resetStatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to reset stats?", "Stats reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                translateService.ResetStats();
+
+                ShowRows();
             }
         }
     }

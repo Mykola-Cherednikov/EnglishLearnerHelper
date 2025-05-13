@@ -82,5 +82,14 @@
 
             return ReloadTranslations();
         }
+
+        public List<TranslateSet> ResetStats()
+        {
+            Dictionary.ForEach(t => { t.WrongAnswers.Clear(); t.CorrectAnswers.Clear(); });
+
+            Save();
+
+            return ReloadTranslations();
+        }
     }
 }

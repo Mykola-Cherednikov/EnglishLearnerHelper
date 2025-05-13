@@ -36,8 +36,13 @@
             EditButton = new Button();
             AddButton = new Button();
             TranslationTable = new DataGridView();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            importToolStripMenuItem = new ToolStripMenuItem();
+            resetStatsToolStripMenuItem = new ToolStripMenuItem();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTable).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
@@ -49,16 +54,16 @@
             panel2.Controls.Add(EditButton);
             panel2.Controls.Add(AddButton);
             panel2.Dock = DockStyle.Left;
-            panel2.Location = new Point(0, 0);
+            panel2.Location = new Point(0, 24);
             panel2.Name = "panel2";
-            panel2.Size = new Size(136, 461);
+            panel2.Size = new Size(136, 437);
             panel2.TabIndex = 2;
             // 
             // label1
             // 
             label1.Dock = DockStyle.Bottom;
             label1.Font = new Font("Segoe UI", 10F);
-            label1.Location = new Point(0, 383);
+            label1.Location = new Point(0, 359);
             label1.Name = "label1";
             label1.Size = new Size(136, 23);
             label1.TabIndex = 5;
@@ -68,7 +73,7 @@
             // NumOfQuestionsTextBox
             // 
             NumOfQuestionsTextBox.Dock = DockStyle.Bottom;
-            NumOfQuestionsTextBox.Location = new Point(0, 406);
+            NumOfQuestionsTextBox.Location = new Point(0, 382);
             NumOfQuestionsTextBox.Name = "NumOfQuestionsTextBox";
             NumOfQuestionsTextBox.Size = new Size(136, 23);
             NumOfQuestionsTextBox.TabIndex = 4;
@@ -80,7 +85,7 @@
             // 
             QuizButton.Dock = DockStyle.Bottom;
             QuizButton.Font = new Font("Segoe UI", 14F);
-            QuizButton.Location = new Point(0, 429);
+            QuizButton.Location = new Point(0, 405);
             QuizButton.Name = "QuizButton";
             QuizButton.Size = new Size(136, 32);
             QuizButton.TabIndex = 3;
@@ -129,12 +134,42 @@
             TranslationTable.AllowUserToAddRows = false;
             TranslationTable.AllowUserToDeleteRows = false;
             TranslationTable.Dock = DockStyle.Fill;
-            TranslationTable.Location = new Point(136, 0);
+            TranslationTable.Location = new Point(136, 24);
             TranslationTable.MultiSelect = false;
             TranslationTable.Name = "TranslationTable";
             TranslationTable.ReadOnly = true;
-            TranslationTable.Size = new Size(668, 461);
+            TranslationTable.Size = new Size(668, 437);
             TranslationTable.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(804, 24);
+            menuStrip1.TabIndex = 3;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importToolStripMenuItem, resetStatsToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // importToolStripMenuItem
+            // 
+            importToolStripMenuItem.Name = "importToolStripMenuItem";
+            importToolStripMenuItem.Size = new Size(180, 22);
+            importToolStripMenuItem.Text = "Import";
+            importToolStripMenuItem.Click += importToolStripMenuItem_Click;
+            // 
+            // resetStatsToolStripMenuItem
+            // 
+            resetStatsToolStripMenuItem.Name = "resetStatsToolStripMenuItem";
+            resetStatsToolStripMenuItem.Size = new Size(180, 22);
+            resetStatsToolStripMenuItem.Text = "Reset stats";
+            resetStatsToolStripMenuItem.Click += resetStatsToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -143,13 +178,18 @@
             ClientSize = new Size(804, 461);
             Controls.Add(TranslationTable);
             Controls.Add(panel2);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "MainForm";
             Load += MainForm_Load;
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTable).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -161,5 +201,9 @@
         private Label label1;
         private TextBox NumOfQuestionsTextBox;
         private DataGridView TranslationTable;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem importToolStripMenuItem;
+        private ToolStripMenuItem resetStatsToolStripMenuItem;
     }
 }
