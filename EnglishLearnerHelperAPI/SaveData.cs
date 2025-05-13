@@ -4,6 +4,6 @@
     {
         public int Version { get; set; }
 
-        public List<object> Data { get; set; } = new List<object>();
+        public object Data { get; set; } = null!;
     }
 }
