@@ -131,8 +131,12 @@ namespace EnglishLearnerHelper
 
         private void CorrectAnswer(object? sender, EventArgs e, TranslateSet c)
         {
+            if (!AnswerTried)
+            {
+                c.CorrectAnswers.Add(DateTime.Now);
+            }
+
             NextTranslation();
-            c.CorrectAnswers.Add(DateTime.Now);
         }
 
         private void WrongAnswer(object? sender, EventArgs e, TranslateSet w, TranslateSet c)

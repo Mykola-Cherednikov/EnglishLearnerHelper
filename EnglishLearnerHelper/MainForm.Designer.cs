@@ -40,6 +40,8 @@
             fileToolStripMenuItem = new ToolStripMenuItem();
             importToolStripMenuItem = new ToolStripMenuItem();
             resetStatsToolStripMenuItem = new ToolStripMenuItem();
+            TranslatesCountLabel = new Label();
+            label3 = new Label();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTable).BeginInit();
             menuStrip1.SuspendLayout();
@@ -47,6 +49,8 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(label3);
+            panel2.Controls.Add(TranslatesCountLabel);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(NumOfQuestionsTextBox);
             panel2.Controls.Add(QuizButton);
@@ -160,16 +164,38 @@
             // importToolStripMenuItem
             // 
             importToolStripMenuItem.Name = "importToolStripMenuItem";
-            importToolStripMenuItem.Size = new Size(180, 22);
+            importToolStripMenuItem.Size = new Size(129, 22);
             importToolStripMenuItem.Text = "Import";
             importToolStripMenuItem.Click += importToolStripMenuItem_Click;
             // 
             // resetStatsToolStripMenuItem
             // 
             resetStatsToolStripMenuItem.Name = "resetStatsToolStripMenuItem";
-            resetStatsToolStripMenuItem.Size = new Size(180, 22);
+            resetStatsToolStripMenuItem.Size = new Size(129, 22);
             resetStatsToolStripMenuItem.Text = "Reset stats";
             resetStatsToolStripMenuItem.Click += resetStatsToolStripMenuItem_Click;
+            // 
+            // TranslatesCountLabel
+            // 
+            TranslatesCountLabel.Dock = DockStyle.Bottom;
+            TranslatesCountLabel.Font = new Font("Segoe UI", 10F);
+            TranslatesCountLabel.Location = new Point(0, 339);
+            TranslatesCountLabel.Name = "TranslatesCountLabel";
+            TranslatesCountLabel.Size = new Size(136, 20);
+            TranslatesCountLabel.TabIndex = 6;
+            TranslatesCountLabel.Text = "0";
+            TranslatesCountLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.Dock = DockStyle.Bottom;
+            label3.Font = new Font("Segoe UI", 10F);
+            label3.Location = new Point(0, 319);
+            label3.Name = "label3";
+            label3.Size = new Size(136, 20);
+            label3.TabIndex = 7;
+            label3.Text = "Translates count:";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
@@ -205,5 +231,7 @@
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem importToolStripMenuItem;
         private ToolStripMenuItem resetStatsToolStripMenuItem;
+        private Label label3;
+        private Label TranslatesCountLabel;
     }
 }

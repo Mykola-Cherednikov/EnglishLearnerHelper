@@ -35,6 +35,8 @@ namespace EnglishLearnerHelper
             {
                 TranslationTable.Rows.Add(row.OriginalWord, row.TranslatedWord, row.OriginalSentence, row.CorrectAnswers.Count, row.WrongAnswers.Count, row.Id);
             }
+
+            TranslatesCountLabel.Text = TranslationTable.RowCount.ToString();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -46,6 +48,8 @@ namespace EnglishLearnerHelper
         public void AddRow(TranslateSet translateSet)
         {
             TranslationTable.Rows.Add(translateSet.OriginalWord, translateSet.TranslatedWord, translateSet.OriginalSentence, translateSet.CorrectAnswers.Count, translateSet.WrongAnswers.Count, translateSet.Id);
+
+            TranslatesCountLabel.Text = TranslationTable.RowCount.ToString();
 
             translateService.AddTranslation(translateSet);
         }
@@ -93,6 +97,8 @@ namespace EnglishLearnerHelper
                 translateService.RemoveTranslation(TranslationTable["Id", rowIndex].Value.ToString()!);
 
                 TranslationTable.Rows.RemoveAt(rowIndex);
+
+                TranslatesCountLabel.Text = TranslationTable.RowCount.ToString();
             }
             catch (Exception ex)
             {
@@ -107,6 +113,8 @@ namespace EnglishLearnerHelper
             quizForm.ShowDialog();
 
             translateService.Save();
+
+            ShowRows();
         }
 
         private void NumOfQuestionsTextBox_KeyPress(object sender, KeyPressEventArgs e)
