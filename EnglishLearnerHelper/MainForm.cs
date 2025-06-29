@@ -197,5 +197,17 @@ namespace EnglishLearnerHelper
                 ShowRows();
             }
         }
+
+        private void removeLearnedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to remove learned?", "Stats reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                translateService.RemoveLearned();
+
+                ShowRows();
+            }
+        }
     }
 }

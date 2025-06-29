@@ -91,5 +91,36 @@
 
             return ReloadTranslations();
         }
+
+        public List<TranslateSet> RemoveLearned(int streakLength = 7)
+        {
+            List<TranslateSet> removingSet = Dictionary.Where(t => IsStreaked(t, streakLength)).ToList();
+
+            Dictionary.RemoveAll(t => removingSet.Contains(t));
+
+            FileService.Save($"{Path.GetDirectoryName(FilePath)}removed_set_{DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")}.txt", removingSet);
+
+            Save();
+
+            return ReloadTranslations();
+        }
+
+        private bool IsStreaked(TranslateSet translateSet, int streakLength)
+        {
+            if(translateSet.CorrectAnswers.Count < streakLength)
+            {
+                return false;
+            }
+
+            if(translateSet.WrongAnswers.Count == 0)
+            {
+                return true;
+            }
+
+            var firstStreaked = translateSet.CorrectAnswers[^streakLength];
+            var lastWrong = translateSet.WrongAnswers.Last();
+
+            return firstStreaked > lastWrong;
+        }
     }
 }

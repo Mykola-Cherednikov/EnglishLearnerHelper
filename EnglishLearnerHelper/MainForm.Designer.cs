@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel2 = new Panel();
+            label3 = new Label();
+            TranslatesCountLabel = new Label();
             label1 = new Label();
             NumOfQuestionsTextBox = new TextBox();
             QuizButton = new Button();
@@ -40,8 +42,7 @@
             fileToolStripMenuItem = new ToolStripMenuItem();
             importToolStripMenuItem = new ToolStripMenuItem();
             resetStatsToolStripMenuItem = new ToolStripMenuItem();
-            TranslatesCountLabel = new Label();
-            label3 = new Label();
+            removeLearnedToolStripMenuItem = new ToolStripMenuItem();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTable).BeginInit();
             menuStrip1.SuspendLayout();
@@ -62,6 +63,28 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(136, 437);
             panel2.TabIndex = 2;
+            // 
+            // label3
+            // 
+            label3.Dock = DockStyle.Bottom;
+            label3.Font = new Font("Segoe UI", 10F);
+            label3.Location = new Point(0, 319);
+            label3.Name = "label3";
+            label3.Size = new Size(136, 20);
+            label3.TabIndex = 7;
+            label3.Text = "Translates count:";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TranslatesCountLabel
+            // 
+            TranslatesCountLabel.Dock = DockStyle.Bottom;
+            TranslatesCountLabel.Font = new Font("Segoe UI", 10F);
+            TranslatesCountLabel.Location = new Point(0, 339);
+            TranslatesCountLabel.Name = "TranslatesCountLabel";
+            TranslatesCountLabel.Size = new Size(136, 20);
+            TranslatesCountLabel.TabIndex = 6;
+            TranslatesCountLabel.Text = "0";
+            TranslatesCountLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -156,7 +179,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importToolStripMenuItem, resetStatsToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importToolStripMenuItem, resetStatsToolStripMenuItem, removeLearnedToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
@@ -164,38 +187,23 @@
             // importToolStripMenuItem
             // 
             importToolStripMenuItem.Name = "importToolStripMenuItem";
-            importToolStripMenuItem.Size = new Size(129, 22);
+            importToolStripMenuItem.Size = new Size(180, 22);
             importToolStripMenuItem.Text = "Import";
             importToolStripMenuItem.Click += importToolStripMenuItem_Click;
             // 
             // resetStatsToolStripMenuItem
             // 
             resetStatsToolStripMenuItem.Name = "resetStatsToolStripMenuItem";
-            resetStatsToolStripMenuItem.Size = new Size(129, 22);
+            resetStatsToolStripMenuItem.Size = new Size(180, 22);
             resetStatsToolStripMenuItem.Text = "Reset stats";
             resetStatsToolStripMenuItem.Click += resetStatsToolStripMenuItem_Click;
             // 
-            // TranslatesCountLabel
+            // removeLearnedToolStripMenuItem
             // 
-            TranslatesCountLabel.Dock = DockStyle.Bottom;
-            TranslatesCountLabel.Font = new Font("Segoe UI", 10F);
-            TranslatesCountLabel.Location = new Point(0, 339);
-            TranslatesCountLabel.Name = "TranslatesCountLabel";
-            TranslatesCountLabel.Size = new Size(136, 20);
-            TranslatesCountLabel.TabIndex = 6;
-            TranslatesCountLabel.Text = "0";
-            TranslatesCountLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.Dock = DockStyle.Bottom;
-            label3.Font = new Font("Segoe UI", 10F);
-            label3.Location = new Point(0, 319);
-            label3.Name = "label3";
-            label3.Size = new Size(136, 20);
-            label3.TabIndex = 7;
-            label3.Text = "Translates count:";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
+            removeLearnedToolStripMenuItem.Name = "removeLearnedToolStripMenuItem";
+            removeLearnedToolStripMenuItem.Size = new Size(180, 22);
+            removeLearnedToolStripMenuItem.Text = "Remove learned";
+            removeLearnedToolStripMenuItem.Click += removeLearnedToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -233,5 +241,6 @@
         private ToolStripMenuItem resetStatsToolStripMenuItem;
         private Label label3;
         private Label TranslatesCountLabel;
+        private ToolStripMenuItem removeLearnedToolStripMenuItem;
     }
 }
